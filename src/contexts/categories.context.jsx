@@ -19,7 +19,6 @@ export const CategoriesProvider = ({ children }) => {
      * 1st useeffect argument as an async func: */
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocuments();
-      console.log(categoryMap);
       setCategoriesMap(categoryMap);
     };
     getCategoriesMap();
