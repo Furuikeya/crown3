@@ -1,9 +1,10 @@
-import { useContext, useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import ProductCard from "../../components/product-card/product-card.component";
 
-import { CategoriesContext } from "../../contexts/categories.context";
+import { selectCategoriesMap } from "../../store/categories/catgory.selector";
 
 import {
   CategoryContainer,
@@ -12,8 +13,11 @@ import {
 
 const Category = () => {
   const { category } = useParams();
-  const { categoriesMap } = useContext(CategoriesContext);
+  console.log("category", category);
+  const categoriesMap = useSelector(selectCategoriesMap);
+  console.log("categoriesMap", categoriesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
+  console.log("products", products);
 
   useEffect(() => {
     window.scrollTo(0, 0);

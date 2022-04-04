@@ -9,6 +9,7 @@ export const CategoryPreviewContainer = styled.div`
 `;
 
 export const TitleContainer = styled(Link)`
+  text-transform: uppercase;
   font-size: 28px;
   margin-bottom: 25px;
   cursor: pointer;
