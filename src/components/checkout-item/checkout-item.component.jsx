@@ -1,5 +1,10 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItemToCart,
+  decreaseItemCount,
+  removeItem,
+} from "../../store/cart/cart.action.js";
+import { selectCartItems } from "../../store/cart/cart.selectors.js";
 
 import {
   CheckoutItemContainer,
@@ -11,12 +16,13 @@ import {
 
 const CheckOutItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
-  const { addItemToCart, decreaseItemCount, removeItem } =
-    useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
-  const incrementHandler = () => addItemToCart(cartItem);
-  const decrementHandler = () => decreaseItemCount(cartItem);
-  const removeHandler = () => removeItem(cartItem);
+  const incrementHandler = () => dispatch(addItemToCart(cartItems, cartItem));
+  const decrementHandler = () =>
+    dispatch(decreaseItemCount(cartItems, cartItem));
+  const removeHandler = () => dispatch(removeItem(cartItems, cartItem));
 
   return (
     <CheckoutItemContainer>
@@ -29,7 +35,7 @@ const CheckOutItem = ({ cartItem }) => {
         <span>{quantity}</span>
         <div onClick={incrementHandler}>&#10095;</div>
       </QuantityContainer>
-      <TextContainer>{price}</TextContainer>
+      <TextContainer>${price}</TextContainer>
       <RemoveButtonContainer onClick={removeHandler}>
         &#10005;
       </RemoveButtonContainer>

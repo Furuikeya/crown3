@@ -13,11 +13,8 @@ import {
 
 const Category = () => {
   const { category } = useParams();
-  console.log("category", category);
   const categoriesMap = useSelector(selectCategoriesMap);
-  console.log("categoriesMap", categoriesMap);
   const [products, setProducts] = useState(categoriesMap[category]);
-  console.log("products", products);
 
   useEffect(() => {
     window.scrollTo(0, 0);
