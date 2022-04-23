@@ -1,10 +1,13 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import CheckOutItem from "../../components/checkout-item/checkout-item.component";
 import {
   selectCartItems,
   selectTotalPrice,
 } from "../../store/cart/cart.selectors";
+
+import CheckOutItem from "../../components/checkout-item/checkout-item.component";
+import PaymentForm from "../../components/payment-form/payment-form.component";
 
 import {
   CheckoutContainer,
@@ -12,10 +15,14 @@ import {
   HeaderBlockContainer,
   TotalContainer,
 } from "./checkout.styles.jsx";
+import { setIsCartOpen } from "../../store/cart/cart.action";
 
 const CheckOut = () => {
   const cartItems = useSelector(selectCartItems);
   const totalPrice = useSelector(selectTotalPrice);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(setIsCartOpen(false)));
 
   return (
     <CheckoutContainer>
@@ -30,6 +37,7 @@ const CheckOut = () => {
         <CheckOutItem key={cartItem.id} cartItem={cartItem} />
       ))}
       <TotalContainer>TOTAL: ${totalPrice}</TotalContainer>
+      <PaymentForm />
     </CheckoutContainer>
   );
 };
